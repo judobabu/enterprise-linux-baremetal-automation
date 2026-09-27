@@ -1,76 +1,36 @@
-                         ENTERPRISE LINUX BARE-METAL
-                    PROVISIONING & AUTOMATION PLATFORM
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                                                                             │
-│  Application Team                                                           │
-│       │                                                                     │
-│       ▼                                                                     │
-│  ┌──────────────────────┐                                                   │
-│  │ Web Portal           │                                                   │
-│  │ React / Angular      │                                                   │
-│  │ Server Request       │                                                   │
-│  └──────────┬───────────┘                                                   │
-│             │                                                               │
-│             ▼                                                               │
-│  ┌──────────────────────────────────────┐                                   │
-│  │ FastAPI API / Python Orchestrator    │                                   │
-│  │                                      │                                   │
-│  │ • Request Validation                 │                                   │
-│  │ • Hostname Generation                │                                   │
-│  │ • Workflow Orchestration             │                                   │
-│  │ • Error Handling / State Management  │                                   │
-│  └───────────────┬──────────────────────┘                                   │
-│                  │                                                          │
-│       ┌──────────┼───────────┬───────────────┐                              │
-│       ▼          ▼           ▼               ▼                              │
-│  ┌─────────┐ ┌─────────┐ ┌────────────┐ ┌──────────────┐                   │
-│  │ServiceNow│ │Infoblox │ │Cisco UCS   │ │NetApp ONTAP │                   │
-│  │CMDB      │ │DNS/IPAM │ │UCSM        │ │Storage      │                   │
-│  │          │ │         │ │            │ │             │                   │
-│  │App Data  │ │IP/DNS   │ │Service     │ │Volume/LUN   │                   │
-│  │Ownership │ │Records  │ │Profiles    │ │iGroup/Map   │                   │
-│  └─────────┘ └─────────┘ └────────────┘ └──────────────┘                   │
-│                  │           │               │                              │
-│                  └───────────┼───────────────┘                              │
-│                              ▼                                              │
-│                    ┌────────────────────┐                                   │
-│                    │ PXE / DHCP /       │                                   │
-│                    │ Kickstart          │                                   │
-│                    │ OS Deployment      │                                   │
-│                    └──────────┬─────────┘                                   │
-│                               │                                             │
-│                               ▼                                             │
-│                    ┌────────────────────┐                                   │
-│                    │ Linux Bare-Metal   │                                   │
-│                    │ Server             │                                   │
-│                    │                    │                                   │
-│                    │ RHEL / AlmaLinux   │                                   │
-│                    │ Ubuntu             │                                   │
-│                    └──────────┬─────────┘                                   │
-│                               │                                             │
-│                               ▼                                             │
-│                    ┌────────────────────┐                                   │
-│                    │ Ansible            │                                   │
-│                    │ Post-Installation  │                                   │
-│                    │ Automation         │                                   │
-│                    │                    │                                   │
-│                    │ • Packages         │                                   │
-│                    │ • AD Integration   │                                   │
-│                    │ • Security Agents  │                                   │
-│                    │ • Monitoring       │                                   │
-│                    │ • Patch Management │                                   │
-│                    │ • App Prerequisites│                                   │
-│                    └──────────┬─────────┘                                   │
-│                               │                                             │
-│                               ▼                                             │
-│                    ┌────────────────────┐                                   │
-│                    │ CMDB Registration  │                                   │
-│                    │ & Owner Notification│                                  │
-│                    └────────────────────┘                                   │
-│                                                                             │
-│  ┌────────────────────┐                                                     │
-│  │ Jenkins CI/CD      │──────► Python / FastAPI / Ansible                  │
-│  │ Build & Testing    │                                                     │
-│  └────────────────────┘                                                     │
-│                                                                             │
-└─────────────────────────────────────────────────────────────────────────────┘
+Application Team
+       │
+       ▼
+┌──────────────────────┐
+│ Web Portal           │
+│ React / Angular      │
+└──────────┬───────────┘
+           ▼
+┌─────────────────────────────┐
+│ FastAPI + Python            │
+│ Workflow Orchestrator       │
+└─────────────┬───────────────┘
+              │
+     ┌────────┼────────┬────────────┐
+     ▼        ▼        ▼            ▼
+ ServiceNow Infoblox  Cisco UCS   NetApp ONTAP
+   CMDB      DNS/IPAM   Compute       Storage
+     │        │        │            │
+     └────────┴────────┴────────────┘
+              │
+              ▼
+      PXE / DHCP / Kickstart
+              │
+              ▼
+       Linux Bare-Metal
+     RHEL / AlmaLinux / Ubuntu
+              │
+              ▼
+       Ansible Automation
+              │
+              ▼
+   Enterprise Configuration
+              │
+              ▼
+    CMDB Registration &
+   Application Notification

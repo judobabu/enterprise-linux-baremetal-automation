@@ -218,3 +218,61 @@ A standardized provisioning request provides:
 ## Portfolio Note
 
 This is a sanitized reference example based on enterprise infrastructure provisioning architecture. Production application names, internal identifiers, IP addresses, DNS zones, hardware identifiers, and other proprietary information have been intentionally excluded.
+
+## Provisioning Decision Matrix
+
+The provisioning platform evaluates request attributes and maps them to the appropriate infrastructure workflow.
+
+| Request Attribute   | Example Value   | Resulting Decision                                              |
+| ------------------- | --------------- | --------------------------------------------------------------- |
+| Datacenter          | Primary DC      | Select available infrastructure in the requested location       |
+| Landscape           | DEV             | Apply development environment standards                         |
+| Network Zone        | Internal        | Select the appropriate network configuration                    |
+| Component           | APP             | Apply application-server provisioning profile                   |
+| Operating System    | RHEL 9          | Select the RHEL PXE/Kickstart workflow                          |
+| Storage             | Standard OS     | Allocate the standard boot storage profile                      |
+| Hardware            | Bare Metal      | Select an available Cisco UCS blade                             |
+| Application         | TCS Application | Validate application context through CMDB                       |
+| Owner               | CMDB Owner      | Associate infrastructure with the responsible application owner |
+| Special Requirement | Additional IPs  | Trigger additional network allocation workflow                  |
+
+## Infrastructure Profile Selection
+
+The request information is used to determine the appropriate infrastructure profile before provisioning begins.
+
+```text id="8b3c3f"
+Request Attributes
+       |
+       v
+Validation & Policy Checks
+       |
+       v
+Infrastructure Profile
+       |
+       +---- Compute Profile
+       +---- Network Profile
+       +---- Storage Profile
+       +---- OS Profile
+       +---- Ansible Configuration Profile
+       |
+       v
+Provisioning Execution
+```
+
+This separation between the **request**, **decision logic**, and **execution workflow** allows infrastructure standards to evolve without changing the overall provisioning process.
+
+## Governance and Automation
+
+The decision matrix also provides a governance layer between the application request and infrastructure execution.
+
+Instead of allowing individual requests to directly control infrastructure APIs, the platform validates and translates the requested configuration into approved infrastructure workflows.
+
+This architecture provides a balance between:
+
+* Application team flexibility
+* Enterprise infrastructure standards
+* Automation
+* Governance
+* Repeatability
+* Operational consistency
+
